@@ -17,11 +17,12 @@ COPY . /code/
 # Set the working directory to /code/
 WORKDIR /code/
 
-RUN python manage.py migrate
-
 RUN useradd wagtail
 RUN chown -R wagtail /code
 USER wagtail
 
+COPY Docker/start.sh /code/start.sh
+
+WORKDIR /code
 EXPOSE 8000
-CMD exec gunicorn pzlamsite.wsgi:application --bind 0.0.0.0:8000 --workers 3
+CMD exec /code/start.sh
