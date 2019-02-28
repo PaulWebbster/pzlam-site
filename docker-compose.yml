@@ -10,13 +10,17 @@ services:
       - database
     ports:
       - "8000:8000"
+    volumes:
+      - ${PWD}:/code/
 
   database:
     image: postgres:11
     restart: always
     environment:
-      POSTGRES_USER: pzlam
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pkbcilwl
       POSTGRES_DB: pzlamsite
+    volumes:
+      - ${PWD}/database-init:/docker-entrypoint-initdb.d/
     expose:
       - "5432"

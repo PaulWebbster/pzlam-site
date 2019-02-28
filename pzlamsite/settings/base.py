@@ -93,7 +93,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pzlamsite',
-        'USER': 'pzlam',
+        'USER': 'postgres',
         'PASSWORD': 'pkbcilwl',
         'HOST': 'database',
         'PORT': '',
