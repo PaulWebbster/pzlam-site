@@ -12,16 +12,14 @@ RUN pip install --upgrade pip
 RUN pip install -r /code/requirements.txt
 RUN pip install gunicorn
 
-# Copy the current directory contents into the container at /code/
-COPY . /code/
-# Set the working directory to /code/
-WORKDIR /code/
-
-RUN python manage.py migrate
-
 RUN useradd wagtail
+RUN mkdir -p /home/wagtail
 RUN chown -R wagtail /code
+RUN chown -R wagtail /home/wagtail
 USER wagtail
 
+COPY Docker/start.sh /home/wagtail/start.sh
+
+WORKDIR /code
 EXPOSE 8000
-CMD exec gunicorn pzlamsite.wsgi:application --bind 0.0.0.0:8000 --workers 3
+CMD exec /home/wagtail/start.sh
